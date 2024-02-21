@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -133,5 +134,16 @@ public class User implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getRolesNames() {
+        List<Role> roles = getRoles();
+        String result = "";
+        for (Role role: roles) {
+            result = result.concat(role.getRole()
+                    .replaceAll("ROLE_", "")
+                    .concat(" "));
+        }
+        return result;
     }
 }
